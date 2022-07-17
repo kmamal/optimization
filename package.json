@@ -44,5 +44,13 @@
     "./domain/get-midpoint": "./src/domain/get-midpoint.js",
     "./domain/get-random": "./src/domain/get-random.js",
     "./powells-method": "./src/powells-method.js"
+  },
+  "dependencies": {
+    "@kmamal/util": "^0.0.92"
+  },
+  "devDependencies": {
+    "@kmamal/chart": "^0.0.16",
+    "@kmamal/sdl": "^0.3.6",
+    "canvas": "^2.9.3"
   }
 }
