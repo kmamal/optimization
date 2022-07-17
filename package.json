@@ -8,8 +8,41 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "test": "./scripts/run-tests.sh",
     "update-exports": "./scripts/update-exports.sh"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "exports": {
+    "./differential-evolution": "./src/differential-evolution.js",
+    "./optimize-integers": "./src/optimize-integers.js",
+    "./search": "./src/search.js",
+    "./optimize-reals": "./src/optimize-reals.js",
+    "./optimize-mixed": "./src/optimize-mixed.js",
+    "./metaheuristics/wandering": "./src/metaheuristics/wandering.js",
+    "./metaheuristics/simulated-annealing": "./src/metaheuristics/simulated-annealing.js",
+    "./metaheuristics/hill-climbing": "./src/metaheuristics/hill-climbing.js",
+    "./1d/bounded/fibonacci": "./src/1d/bounded/fibonacci.js",
+    "./1d/bounded/golden-ratio": "./src/1d/bounded/golden-ratio.js",
+    "./1d/find-bounds/stepwise": "./src/1d/find-bounds/stepwise.js",
+    "./1d/find-bounds/fibonacci": "./src/1d/find-bounds/fibonacci.js",
+    "./1d/find-bounds/golden-ratio": "./src/1d/find-bounds/golden-ratio.js",
+    "./1d/find-bounds/binary": "./src/1d/find-bounds/binary.js",
+    "./1d/unbounded/meta-bidirectional": "./src/1d/unbounded/meta-bidirectional.js",
+    "./1d/unbounded/meta-unidirectional": "./src/1d/unbounded/meta-unidirectional.js",
+    "./random-neighbor/hypersphere": "./src/random-neighbor/hypersphere.js",
+    "./random-neighbor/hyperbox": "./src/random-neighbor/hyperbox.js",
+    "./random-neighbor/hypercube": "./src/random-neighbor/hypercube.js",
+    "./random-neighbor/hyperball": "./src/random-neighbor/hyperball.js",
+    "./bayesian": "./src/bayesian.js",
+    "./pattern-search": "./src/pattern-search.js",
+    "./coordinate-descent": "./src/coordinate-descent.js",
+    "./random-search": "./src/random-search.js",
+    "./nelder-mead": "./src/nelder-mead.js",
+    "./domain/clamp": "./src/domain/clamp.js",
+    "./domain/get-half-ranges": "./src/domain/get-half-ranges.js",
+    "./domain/contains": "./src/domain/contains.js",
+    "./domain/make-finite": "./src/domain/make-finite.js",
+    "./domain/get-midpoint": "./src/domain/get-midpoint.js",
+    "./domain/get-random": "./src/domain/get-random.js",
+    "./powells-method": "./src/powells-method.js"
+  }
 }
