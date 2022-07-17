@@ -1,0 +1,15 @@
+{
+  "version": "0.0.0",
+  "name": "@kmamal/optimization",
+  "description": "optimization",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kmamal/optimization.git"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "./scripts/run-tests.sh",
+    "update-exports": "./scripts/update-exports.sh"
+  },
+  "license": "MIT"
+}
