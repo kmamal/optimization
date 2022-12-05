@@ -1,10 +1,10 @@
 const { getRandom } = require('./domain/get-random')
 const { getHalfRanges } = require('./domain/get-half-ranges')
 const { contains } = require('./domain/contains')
-const { sortByPure } = require('@kmamal/util/array/sort')
+const { sortBy } = require('@kmamal/util/array/sort')
 
-const { defineFor } = require('../linear-algebra/vector')
-const N = require('../domains/number')
+const { defineFor } = require('@kmamal/linear-algebra/vector')
+const N = require('@kmamal/numbers/js')
 const V = defineFor(N)
 
 const getValue = (x) => x.value
@@ -39,7 +39,7 @@ const init = async (
 		}))
 	}
 
-	sortByPure.$$$(points, getValue)
+	sortBy.$$$(points, getValue)
 
 	return {
 		order,
@@ -151,7 +151,7 @@ const iter = async (state) => {
 		}))
 	}
 
-	sortByPure.$$$(points, getValue)
+	sortBy.$$$(points, getValue)
 }
 
 const best = (state) => state.points[0]

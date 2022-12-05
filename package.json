@@ -6,9 +6,8 @@
     "type": "git",
     "url": "git@github.com:kmamal/optimization.git"
   },
-  "main": "src/index.js",
   "scripts": {
-    "update-exports": "./scripts/update-exports.sh"
+    "update-exports": "node ./scripts/update-exports.mjs"
   },
   "license": "MIT",
   "exports": {
@@ -46,11 +45,16 @@
     "./powells-method": "./src/powells-method.js"
   },
   "dependencies": {
-    "@kmamal/util": "^0.0.92"
+    "@kmamal/linear-algebra": "^0.0.3",
+    "@kmamal/math": "^0.1.1",
+    "@kmamal/numbers": "^0.0.2",
+    "@kmamal/sampling": "^0.0.2",
+    "@kmamal/util": "^0.1.6"
   },
   "devDependencies": {
-    "@kmamal/chart": "^0.0.16",
-    "@kmamal/sdl": "^0.3.6",
-    "canvas": "^2.9.3"
+    "@kmamal/chart": "^0.0.17",
+    "@kmamal/color": "^0.0.15",
+    "@kmamal/sdl": "^0.6.2",
+    "canvas": "^2.10.2"
   }
 }

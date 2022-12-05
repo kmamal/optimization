@@ -2,8 +2,8 @@ const { dimensionContains } = require('../../domain/contains')
 const { dimensionClamp } = require('../../domain/clamp')
 const { init: initBounded } = require('../bounded/fibonacci')
 
-const { defineFor } = require('../../../fib')
-const N = require('../../../domains/number')
+const { defineFor } = require('@kmamal/math/fib')
+const N = require('@kmamal/numbers/js')
 const fib = defineFor(N)
 
 const init = async (problem, a, fa, step) => {

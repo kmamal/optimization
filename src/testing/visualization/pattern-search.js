@@ -3,12 +3,12 @@ const Canvas = require('canvas')
 const functions = require('../test-functions/simple')
 const { makeFinite } = require('../../domain/make-finite')
 const { init, iter } = require('../../pattern-search')
-const { makeWeightedScale } = require('../../../../../color/src/scale')
-const { convert } = require('../../../../../color/src/convert')
+const { makeWeightedScale } = require('@kmamal/color/scale')
+const { convert } = require('@kmamal/color/convert')
 const { makeTransformers } = require('@kmamal/chart/coordinates')
 
-const { defineFor } = require('../../../linear-algebra/vector')
-const N = require('../../../domains/number')
+const { defineFor } = require('@kmamal/linear-algebra/vector')
+const N = require('@kmamal/numbers/js')
 const V = defineFor(N)
 
 const window = SDL.video.createWindow({

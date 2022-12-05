@@ -1,10 +1,10 @@
 const { getRandom } = require('./domain/get-random')
 const { accept: acceptHillClimbing } = require('./metaheuristics/hill-climbing')
-const { fromFactory } = require('@kmamal/util/array/from-factory')
+const { fillWith } = require('@kmamal/util/array/fill')
 const { map } = require('@kmamal/util/array/map')
 
-const { defineFor } = require('../linear-algebra/vector')
-const N = require('../domains/number')
+const { defineFor } = require('@kmamal/linear-algebra/vector')
+const N = require('@kmamal/numbers/js')
 const V = defineFor(N)
 
 const init = async (
@@ -19,7 +19,7 @@ const init = async (
 		func,
 		solution,
 		value,
-		vectors: fromFactory(order, (i) => {
+		vectors: fillWith.$$$(new Array(order), (i) => {
 			const v = new Array(order).fill(0)
 			v[i] = 1
 			return v

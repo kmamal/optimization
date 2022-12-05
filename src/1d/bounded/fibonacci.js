@@ -1,5 +1,5 @@
-const { defineFor } = require('../../../fib')
-const N = require('../../../domains/number')
+const { defineFor } = require('@kmamal/math/fib')
+const N = require('@kmamal/numbers/js')
 const fib = defineFor(N)
 
 const init = async ({ func }, a, b) => {

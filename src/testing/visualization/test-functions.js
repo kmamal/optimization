@@ -1,7 +1,7 @@
 const SDL = require('@kmamal/sdl')
 const functions = require('../test-functions/simple')
-const { makeWeightedScale } = require('../../../../../color/src/scale')
-const { convert } = require('../../../../../color/src/convert')
+const { makeWeightedScale } = require('@kmamal/color/scale')
+const { convert } = require('@kmamal/color/convert')
 const { makeTransformers } = require('@kmamal/chart/coordinates')
 
 const window = SDL.video.createWindow({

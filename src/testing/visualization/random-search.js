@@ -8,8 +8,8 @@ const {
 	makeAccept: makeSimulatedAnnealing,
 	kirkpatrickSchedule,
 } = require('../../metaheuristics/simulated-annealing')
-const { makeWeightedScale } = require('../../../../../color/src/scale')
-const { convert } = require('../../../../../color/src/convert')
+const { makeWeightedScale } = require('@kmamal/color/scale')
+const { convert } = require('@kmamal/color/convert')
 const { makeTransformers } = require('@kmamal/chart/coordinates')
 
 const { __sampleHypercube } = require('../../random-neighbor/hypercube')

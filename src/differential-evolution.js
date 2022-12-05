@@ -1,6 +1,6 @@
 const { getRandom } = require('./domain/get-random')
 const { clamp } = require('./domain/clamp')
-const { fromFactory } = require('@kmamal/util/array/from-factory')
+const { fillWith } = require('@kmamal/util/array/fill')
 const { rand } = require('@kmamal/util/random/rand')
 const { random } = require('@kmamal/util/random/random')
 
@@ -8,8 +8,8 @@ const init = async (
 	{ func, order, domain },
 	{ initial = {}, ...options } = {},
 ) => {
-	const points = initial.points ?? await Promise.all(fromFactory(
-		Math.max(4, initial.count ?? 10 * order),
+	const points = initial.points ?? await Promise.all(fillWith.$$$(
+		new Array(Math.max(4, initial.count ?? 10 * order)),
 		async () => {
 			const solution = getRandom(domain)
 			const value = await func(...solution)
