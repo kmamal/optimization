@@ -1,8 +1,8 @@
 const { getRandom } = require('./domain/get-random')
 const { clamp } = require('./domain/clamp')
-const { fillWith } = require('@kmamal/util/array/fill')
+const { fillWith } = require('@kmamal/util/array/fill-with')
 const { rand } = require('@kmamal/util/random/rand')
-const { random } = require('@kmamal/util/random/random')
+const { uniform } = require('@kmamal/util/random/uniform')
 
 const init = async (
 	{ func, order, domain },
@@ -71,7 +71,7 @@ const iter = async (state) => {
 
 	const dim = rand(order)
 	for (let i = 0; i < order; i++) {
-		candidate[i] = i === dim || random() < crossoverProbability
+		candidate[i] = i === dim || uniform() < crossoverProbability
 			? ((a[i] / 4) + differentialWeight * ((b[i] / 4) - (c[i] / 4))) * 4
 			: x[i]
 	}

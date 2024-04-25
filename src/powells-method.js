@@ -3,9 +3,8 @@ const { accept: acceptHillClimbing } = require('./metaheuristics/hill-climbing')
 const { fillWith } = require('@kmamal/util/array/fill')
 const { map } = require('@kmamal/util/array/map')
 
-const { defineFor } = require('@kmamal/linear-algebra/vector')
 const N = require('@kmamal/numbers/js')
-const V = defineFor(N)
+const V = require('@kmamal/linear-algebra/vector').defineFor(N)
 
 const init = async (
 	{ order, domain, func },

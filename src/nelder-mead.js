@@ -3,9 +3,8 @@ const { getHalfRanges } = require('./domain/get-half-ranges')
 const { contains } = require('./domain/contains')
 const { sortBy } = require('@kmamal/util/array/sort')
 
-const { defineFor } = require('@kmamal/linear-algebra/vector')
 const N = require('@kmamal/numbers/js')
-const V = defineFor(N)
+const V = require('@kmamal/linear-algebra/vector').defineFor(N)
 
 const getValue = (x) => x.value
 

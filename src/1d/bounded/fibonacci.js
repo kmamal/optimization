@@ -1,16 +1,15 @@
-const { defineFor } = require('@kmamal/math/fib')
 const N = require('@kmamal/numbers/js')
-const fib = defineFor(N)
+const { fibonacci } = require('@kmamal/math/fibonacci').defineFor(N)
 
 const init = async ({ func }, a, b) => {
 	const range = b - a
 	let index = 1
-	while (fib(index) < range) { index++ }
+	while (fibonacci(index) < range) { index++ }
 
 	const ci = index - 2
-	const c = a + fib(ci)
+	const c = a + fibonacci(ci)
 	const di = index - 1
-	const d = a + fib(di)
+	const d = a + fibonacci(di)
 	const [ fc, fd ] = await Promise.all([ func(c), func(d) ])
 	const sign = Math.sign(b - a)
 	return { func, a, b, c, fc, ci, d, fd, di, sign }
@@ -28,14 +27,14 @@ const iter = async (state) => {
 		state.fa = fc
 		state.c = d
 		state.fc = fd
-		state.d = state.a + sign * fib(state.di)
+		state.d = state.a + sign * fibonacci(state.di)
 		state.fd = await func(state.d)
 	} else {
 		state.b = d
 		state.fb = fd
 		state.d = c
 		state.fd = fc
-		state.c = state.a + sign * fib(state.ci)
+		state.c = state.a + sign * fibonacci(state.ci)
 		state.fc = await func(state.c)
 	}
 }

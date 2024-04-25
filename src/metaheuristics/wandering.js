@@ -1,8 +1,8 @@
-const { random } = require('@kmamal/util/random/random')
+const { uniform } = require('@kmamal/util/random/uniform')
 
 const makeAccept = (p) =>
 	(state, candidateValue) => candidateValue === state.value
-		? random() < p
+		? uniform() < p
 		: candidateValue < state.value
 
 module.exports = { makeAccept }

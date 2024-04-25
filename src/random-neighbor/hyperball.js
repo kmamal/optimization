@@ -1,9 +1,9 @@
 const { sampleSphere } = require('../../sampling/sphere')
-const { random } = require('@kmamal/util/random/random')
+const { uniform } = require('@kmamal/util/random/uniform')
 
 const __sampleHyperball = (order, dst, src, steps) => {
 	const sample = sampleSphere(order)
-	const radius = random()
+	const radius = uniform()
 	for (let i = 0; i < order; i++) {
 		dst[i] = src[i] + radius * steps[i] * sample[i]
 	}

@@ -4,7 +4,7 @@
   "description": "optimization",
   "repository": {
     "type": "git",
-    "url": "git@github.com:kmamal/optimization.git"
+    "url": "git+ssh://git@github.com:kmamal/optimization.git"
   },
   "scripts": {
     "update-exports": "node ./scripts/update-exports.mjs"
@@ -36,25 +36,19 @@
     "./coordinate-descent": "./src/coordinate-descent.js",
     "./random-search": "./src/random-search.js",
     "./nelder-mead": "./src/nelder-mead.js",
-    "./domain/clamp": "./src/domain/clamp.js",
-    "./domain/get-half-ranges": "./src/domain/get-half-ranges.js",
-    "./domain/contains": "./src/domain/contains.js",
-    "./domain/make-finite": "./src/domain/make-finite.js",
-    "./domain/get-midpoint": "./src/domain/get-midpoint.js",
-    "./domain/get-random": "./src/domain/get-random.js",
     "./powells-method": "./src/powells-method.js"
   },
   "dependencies": {
-    "@kmamal/linear-algebra": "^0.0.3",
-    "@kmamal/math": "^0.1.1",
-    "@kmamal/numbers": "^0.0.2",
+    "@kmamal/linear-algebra": "^0.0.5",
+    "@kmamal/math": "^0.1.3",
+    "@kmamal/numbers": "^0.0.4",
     "@kmamal/sampling": "^0.0.2",
-    "@kmamal/util": "^0.1.6"
+    "@kmamal/util": "^0.2.1"
   },
   "devDependencies": {
     "@kmamal/chart": "^0.0.17",
     "@kmamal/color": "^0.0.15",
-    "@kmamal/sdl": "^0.6.2",
-    "canvas": "^2.10.2"
+    "@kmamal/sdl": "^0.10.4",
+    "canvas": "^2.11.2"
   }
 }

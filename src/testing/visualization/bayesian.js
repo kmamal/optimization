@@ -10,9 +10,8 @@ const { makeTransformers } = require('@kmamal/chart/coordinates')
 const algoNelderMead = require('../../nelder-mead')
 const { search } = require('../../search')
 
-const { defineFor } = require('@kmamal/linear-algebra/vector')
 const N = require('@kmamal/numbers/js')
-const V = defineFor(N)
+const V = require('@kmamal/linear-algebra/vector').defineFor(N)
 
 const window = SDL.video.createWindow({
 	resizable: true,

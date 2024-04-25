@@ -1,10 +1,10 @@
-const { random } = require('@kmamal/util/random/random')
+const { uniform } = require('@kmamal/util/random/uniform')
 
 const makeAccept = (schedule) =>
 	(state, candidateValue) => {
 		if (candidateValue < state.value) { return true }
 		const p = schedule(state, candidateValue)
-		const r = random()
+		const r = uniform()
 		return r < p
 	}
 

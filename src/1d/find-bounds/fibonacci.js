@@ -2,9 +2,8 @@ const { dimensionContains } = require('../../domain/contains')
 const { dimensionClamp } = require('../../domain/clamp')
 const { init: initBounded } = require('../bounded/fibonacci')
 
-const { defineFor } = require('@kmamal/math/fib')
 const N = require('@kmamal/numbers/js')
-const fib = defineFor(N)
+const { fibonacci } = require('@kmamal/math/fibonacci').defineFor(N)
 
 const init = async (problem, a, fa, step) => {
 	const { dimension, func } = problem
@@ -28,14 +27,14 @@ const expand = async (state) => {
 	const { dimension, func, c, fc, index, sign } = state
 
 	const nextIndex = index + 1
-	const step = sign * fib(nextIndex)
+	const step = sign * fibonacci(nextIndex)
 	const b = c + step
 	const fb = await func(b)
 
 	if (!dimensionContains(dimension, b)) {
 		state.b = dimensionClamp(dimension, b)
 		state.fb = fb
-		const prevStep = sign * fib(index)
+		const prevStep = sign * fibonacci(index)
 		state.c = state.a + prevStep
 		state.d = state.a + step
 		const [ _fc, fd ] = await Promise.all([

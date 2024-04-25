@@ -1,8 +1,8 @@
-const { random } = require('@kmamal/util/random/random')
+const { uniform } = require('@kmamal/util/random/uniform')
 
 const __sampleHypercube = (order, dst, src, steps) => {
 	for (let i = 0; i < order; i++) {
-		dst[i] = src[i] + steps[i] * (random() * 2 - 1)
+		dst[i] = src[i] + steps[i] * (uniform() * 2 - 1)
 	}
 }
 

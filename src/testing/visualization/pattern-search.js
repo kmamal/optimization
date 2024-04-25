@@ -7,9 +7,8 @@ const { makeWeightedScale } = require('@kmamal/color/scale')
 const { convert } = require('@kmamal/color/convert')
 const { makeTransformers } = require('@kmamal/chart/coordinates')
 
-const { defineFor } = require('@kmamal/linear-algebra/vector')
 const N = require('@kmamal/numbers/js')
-const V = defineFor(N)
+const V = require('@kmamal/linear-algebra/vector').defineFor(N)
 
 const window = SDL.video.createWindow({
 	resizable: true,

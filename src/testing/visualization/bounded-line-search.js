@@ -1,6 +1,6 @@
 const SDL = require('@kmamal/sdl')
 const Canvas = require('canvas')
-const { init, iter } = require('../../1d/bounded/fibonacci')
+const { init, iter } = require('../../1d/bounded/golden-ratio')
 const { randInt } = require('@kmamal/util/random/rand-int')
 
 const window = SDL.video.createWindow({

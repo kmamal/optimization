@@ -3,9 +3,8 @@ const { getHalfRanges } = require('./domain/get-half-ranges')
 const { clamp } = require('./domain/clamp')
 const { minBy } = require('@kmamal/util/array/min')
 
-const { defineFor } = require('@kmamal/linear-algebra/vector')
 const N = require('@kmamal/numbers/js')
-const V = defineFor(N)
+const V = require('@kmamal/linear-algebra/vector').defineFor(N)
 
 const init = async (
 	{ order, domain, func },
