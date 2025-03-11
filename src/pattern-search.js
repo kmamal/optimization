@@ -1,6 +1,6 @@
-const { getRandom } = require('./domain/get-random')
-const { getHalfRanges } = require('./domain/get-half-ranges')
-const { clamp } = require('./domain/clamp')
+const { getRandom } = require('@kmamal/domains/get-random')
+const { getHalfRanges } = require('@kmamal/domains/get-half-ranges')
+const { clamp } = require('@kmamal/domains/clamp')
 const { minBy } = require('@kmamal/util/array/min')
 
 const N = require('@kmamal/numbers/js')

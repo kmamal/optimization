@@ -1,16 +1,16 @@
-const { dimensionContains } = require('../../domain/contains')
-const { dimensionClamp } = require('../../domain/clamp')
+const { containsSingle } = require('@kmamal/domains/contains')
+const { clampSingle } = require('@kmamal/domains/clamp')
 const { init: initBounded } = require('../bounded/fibonacci')
 
 const N = require('@kmamal/numbers/js')
 const { fibonacci } = require('@kmamal/math/fibonacci').defineFor(N)
 
 const init = async (problem, a, fa, step) => {
-	const { dimension, func } = problem
+	const { variable, func } = problem
 
 	const c = a + step
-	if (!dimensionContains(dimension, c)) {
-		return initBounded(problem, a, dimensionClamp(dimension, c))
+	if (!containsSingle(variable, c)) {
+		return initBounded(problem, a, clampSingle(variable, c))
 	}
 
 	const fc = await func(c)
@@ -20,19 +20,19 @@ const init = async (problem, a, fa, step) => {
 	}
 
 	const sign = Math.sign(step)
-	return { dimension, func, a, fa, c, fc, index: 1, sign }
+	return { variable, func, a, fa, c, fc, index: 1, sign }
 }
 
 const expand = async (state) => {
-	const { dimension, func, c, fc, index, sign } = state
+	const { variable, func, c, fc, index, sign } = state
 
 	const nextIndex = index + 1
 	const step = sign * fibonacci(nextIndex)
 	const b = c + step
 	const fb = await func(b)
 
-	if (!dimensionContains(dimension, b)) {
-		state.b = dimensionClamp(dimension, b)
+	if (!containsSingle(variable, b)) {
+		state.b = clampSingle(variable, b)
 		state.fb = fb
 		const prevStep = sign * fibonacci(index)
 		state.c = state.a + prevStep

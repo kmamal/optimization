@@ -7,16 +7,16 @@ const __sampleHypersphere = (order, dst, src, steps) => {
 	}
 }
 
-const sampleHypersphere$$$ = (vars, steps) => {
-	__sampleHypersphere(vars.length, vars, vars, steps)
-	return vars
-}
-
 const sampleHypersphere = (vars, steps) => {
 	const { length } = vars
 	const res = new Array(length)
 	__sampleHypersphere(length, res, vars, steps)
 	return res
+}
+
+const sampleHypersphere$$$ = (vars, steps) => {
+	__sampleHypersphere(vars.length, vars, vars, steps)
+	return vars
 }
 
 sampleHypersphere.$$$ = sampleHypersphere$$$

@@ -1,6 +1,6 @@
-const { getRandom } = require('./domain/get-random')
-const { getHalfRanges } = require('./domain/get-half-ranges')
-const { contains } = require('./domain/contains')
+const { getRandom } = require('@kmamal/domains/get-random')
+const { getHalfRanges } = require('@kmamal/domains/get-half-ranges')
+const { contains } = require('@kmamal/domains/contains')
 const { sortBy } = require('@kmamal/util/array/sort')
 
 const N = require('@kmamal/numbers/js')

@@ -1,5 +1,5 @@
-const { getRandom } = require('./domain/get-random')
-const { fromFactory } = require('@kmamal/util/array/from-factory')
+const { getRandom } = require('@kmamal/domains/get-random')
+const { create } = require('@kmamal/util/array/create')
 
 const init = async (
 	{ func, order, domain },
@@ -13,7 +13,7 @@ const init = async (
 	}
 	if (points.length < 2) {
 		const remaining = 2 - points.length
-		points.push(...await Promise.all(fromFactory(
+		points.push(...await Promise.all(create(
 			remaining,
 			async () => {
 				const solution = getRandom(domain)

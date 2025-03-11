@@ -1,4 +1,4 @@
-const { getRandom } = require('./domain/get-random')
+const { getRandom } = require('@kmamal/domains/get-random')
 const { map } = require('@kmamal/util/array/map')
 
 const {
@@ -23,14 +23,15 @@ const iter = async (state) => {
 			state.patternSearch.vectors.forEach((vector) => {
 				map.$$$(vector, (x, i) => {
 					const y = x / 2
-					return domain[i].type === 'int' ? _round(y) : y
+					return domain[i].type === 'integer' ? _round(y) : y
 				})
 			})
-		} else {
+		}
+		else {
 			state.patternSearch.vectors.forEach((vector) => {
 				map.$$$(vector, (x, i) => {
 					const y = x * 0.5
-					return domain[i].type === 'int' ? _round(y) : y
+					return domain[i].type === 'integer' ? _round(y) : y
 				})
 			})
 		}
@@ -58,7 +59,7 @@ const iter = async (state) => {
 			{ initial: state.initial },
 		)
 		state.patternSearch.vectors.forEach((vector) => {
-			map.$$$(vector, (x, i) => domain[i].type === 'int' ? _round(x) : x)
+			map.$$$(vector, (x, i) => domain[i].type === 'integer' ? _round(x) : x)
 		})
 	}
 }

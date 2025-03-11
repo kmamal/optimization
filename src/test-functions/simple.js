@@ -18,7 +18,7 @@ const ackley = () => ({
 	order: 2,
 	func (x, y) {
 		return 20 - 20 * Math.exp(-Math.sqrt((x ** 2 + y ** 2) / 2) / 5)
-				+ Math.E - Math.exp((Math.cos(2 * Math.PI * x) + Math.cos(2 * Math.PI * y)) / 2)
+			+ Math.E - Math.exp((Math.cos(2 * Math.PI * x) + Math.cos(2 * Math.PI * y)) / 2)
 	},
 	minima: [ [ 0, 0 ] ],
 	domain: new Array(2).fill({ type: 'real', from: -5, to: 5 }),
@@ -69,9 +69,9 @@ const beale = () => ({
 	order: 2,
 	func (x, y) {
 		return 0
-				+ (1.5 - x + x * y) ** 2
-				+ (2.25 - x + x * y ** 2) ** 2
-				+ (2.625 - x + x * y ** 3) ** 2
+			+ (1.5 - x + x * y) ** 2
+			+ (2.25 - x + x * y ** 2) ** 2
+			+ (2.625 - x + x * y ** 3) ** 2
 	},
 	minima: [ [ 3, 0.5 ] ],
 	domain: new Array(2).fill({ type: 'real', from: -4.5, to: 4.5 }),
@@ -87,7 +87,7 @@ const goldsteinPrice = () => ({
 		const x2 = x ** 2
 		const y2 = y ** 2
 		return (1 + (x + y + 1) ** 2 * (19 - 14 * x + 3 * x2 - 14 * y + 6 * x * y + 3 * y2))
-				* (30 + (2 * x - 3 * y) ** 2 * (18 - 32 * x + 12 * x2 + 48 * y - 36 * x * y + 27 * y2)) - 3
+			* (30 + (2 * x - 3 * y) ** 2 * (18 - 32 * x + 12 * x2 + 48 * y - 36 * x * y + 27 * y2)) - 3
 	},
 	minima: [ [ 0, -1 ] ],
 	domain: new Array(2).fill({ type: 'real', from: -2, to: 2 }),
@@ -140,8 +140,8 @@ const levi13 = () => ({
 	order: 2,
 	func (x, y) {
 		return Math.sin(3 * Math.PI * x) ** 2
-				+ (x - 1) ** 2 * (1 + Math.sin(3 * Math.PI * y) ** 2)
-				+ (y - 1) ** 2 * (1 + Math.sin(2 * Math.PI * y) ** 2)
+			+ (x - 1) ** 2 * (1 + Math.sin(3 * Math.PI * y) ** 2)
+			+ (y - 1) ** 2 * (1 + Math.sin(2 * Math.PI * y) ** 2)
 	},
 	minima: [ [ 1, 1 ] ],
 	domain: new Array(2).fill({ type: 'real', from: -10, to: 10 }),

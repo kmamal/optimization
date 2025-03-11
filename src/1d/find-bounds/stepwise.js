@@ -1,8 +1,8 @@
-const { dimensionContains } = require('../../domain/contains')
-const { dimensionClamp } = require('../../domain/clamp')
+const { containsSingle } = require('@kmamal/domains/contains')
+const { clampSingl } = require('@kmamal/domains/clamp')
 
-const init = ({ dimension, func }, a, fa, step) => ({
-	dimension,
+const init = ({ variable, func }, a, fa, step) => ({
+	variable,
 	func,
 	a,
 	fa,
@@ -10,11 +10,11 @@ const init = ({ dimension, func }, a, fa, step) => ({
 })
 
 const expand = async (state) => {
-	const { dimension, func, a, fa, step } = state
+	const { variable, func, a, fa, step } = state
 
 	const b = a + step
-	if (!dimensionContains(dimension, b)) {
-		state.b = dimensionClamp(dimension, b)
+	if (!containsSingle(variable, b)) {
+		state.b = clampSingl(variable, b)
 		state.fb = await func(b)
 		return
 	}

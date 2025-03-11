@@ -1,4 +1,4 @@
-const SimpleTestFunctions = require('./test-functions/simple')
+const SimpleTestFunctions = require('../test-functions/simple')
 
 const { __linearSearch } = require('../linear')
 

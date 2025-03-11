@@ -1,4 +1,4 @@
-const { sampleBox } = require('../../sampling/box')
+const { sampleBox } = require('@kmamal/sampling/box')
 
 const __sampleHyperbox = (order, dst, src, steps) => {
 	const sample = sampleBox(order)
@@ -7,16 +7,16 @@ const __sampleHyperbox = (order, dst, src, steps) => {
 	}
 }
 
-const sampleHyperbox$$$ = (vars, steps) => {
-	__sampleHyperbox(vars.length, vars, vars, steps)
-	return vars
-}
-
 const sampleHyperbox = (vars, steps) => {
 	const { length } = vars
 	const res = new Array(length)
 	__sampleHyperbox(length, res, vars, steps)
 	return res
+}
+
+const sampleHyperbox$$$ = (vars, steps) => {
+	__sampleHyperbox(vars.length, vars, vars, steps)
+	return vars
 }
 
 sampleHyperbox.$$$ = sampleHyperbox$$$

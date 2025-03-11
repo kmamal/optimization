@@ -1,4 +1,4 @@
-const { getRandom } = require('./domain/get-random')
+const { getRandom } = require('@kmamal/domains/get-random')
 
 const {
 	init: initNelderMead,

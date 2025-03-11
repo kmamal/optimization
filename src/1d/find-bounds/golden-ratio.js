@@ -1,5 +1,5 @@
-const { dimensionContains } = require('../../domain/contains')
-const { dimensionClamp } = require('../../domain/clamp')
+const { containsSingle } = require('@kmamal/domains/contains')
+const { clampSingle } = require('@kmamal/domains/clamp')
 const {
 	PHI,
 	INVPHI,
@@ -8,11 +8,11 @@ const {
 } = require('../bounded/golden-ratio')
 
 const init = async (problem, a, fa, step) => {
-	const { dimension, func } = problem
+	const { variable, func } = problem
 
 	const c = a + step
-	if (!dimensionContains(dimension, c)) {
-		return initBounded(problem, a, dimensionClamp(dimension, c))
+	if (!containsSingle(variable, c)) {
+		return initBounded(problem, a, clampSingle(variable, c))
 	}
 
 	const fc = await func(c)
@@ -21,16 +21,16 @@ const init = async (problem, a, fa, step) => {
 		return state
 	}
 
-	return { dimension, func, a, fa, c, fc, step }
+	return { variable, func, a, fa, c, fc, step }
 }
 
 const expand = async (state) => {
-	const { dimension, func, c, fc, step } = state
+	const { variable, func, c, fc, step } = state
 
 	const nextStep = step * PHI
 	const b = c + nextStep
-	if (!dimensionContains(dimension, b)) {
-		state.b = dimensionClamp(dimension, b)
+	if (!containsSingle(variable, b)) {
+		state.b = clampSingle(variable, b)
 		const halfRange = (state.b / 2) - (state.a / 2)
 		state.c = (state.a + INVPHI2 * halfRange) + INVPHI2 * halfRange
 		state.d = (state.a + INVPHI * halfRange) + INVPHI * halfRange

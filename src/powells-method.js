@@ -1,6 +1,6 @@
-const { getRandom } = require('./domain/get-random')
+const { getRandom } = require('@kmamal/domains/get-random')
 const { accept: acceptHillClimbing } = require('./metaheuristics/hill-climbing')
-const { fillWith } = require('@kmamal/util/array/fill')
+const { create } = require('@kmamal/util/array/create')
 const { map } = require('@kmamal/util/array/map')
 
 const N = require('@kmamal/numbers/js')
@@ -18,7 +18,7 @@ const init = async (
 		func,
 		solution,
 		value,
-		vectors: fillWith.$$$(new Array(order), (i) => {
+		vectors: create(order, (i) => {
 			const v = new Array(order).fill(0)
 			v[i] = 1
 			return v
@@ -47,7 +47,8 @@ const iter = async (state) => {
 
 			vectors[bestSearch.i] = vectors[0]
 			vectors[0] = newVector
-		} else {
+		}
+		else {
 			state.vectors.forEach((vector) => {
 				map.$$$(vector, () => Math.random())
 				V.normalize.$$$(vector)
@@ -73,7 +74,8 @@ const iter = async (state) => {
 		V.add.$$$(solution, V.scale(vector, x))
 		state.value = candidateValue
 		state.countFailed = 0
-	} else {
+	}
+	else {
 		state.countFailed++
 	}
 }

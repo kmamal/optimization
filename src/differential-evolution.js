@@ -1,6 +1,6 @@
-const { getRandom } = require('./domain/get-random')
-const { clamp } = require('./domain/clamp')
-const { fillWith } = require('@kmamal/util/array/fill-with')
+const { getRandom } = require('@kmamal/domains/get-random')
+const { clamp } = require('@kmamal/domains/clamp')
+const { create } = require('@kmamal/util/array/create')
 const { rand } = require('@kmamal/util/random/rand')
 const { uniform } = require('@kmamal/util/random/uniform')
 
@@ -8,8 +8,8 @@ const init = async (
 	{ func, order, domain },
 	{ initial = {}, ...options } = {},
 ) => {
-	const points = initial.points ?? await Promise.all(fillWith.$$$(
-		new Array(Math.max(4, initial.count ?? 10 * order)),
+	const points = initial.points ?? await Promise.all(create(
+		Math.max(4, initial.count ?? 10 * order),
 		async () => {
 			const solution = getRandom(domain)
 			const value = await func(...solution)
@@ -90,7 +90,8 @@ const iter = async (state) => {
 		}
 
 		state.countFailed = 0
-	} else {
+	}
+	else {
 		state.countFailed++
 	}
 }

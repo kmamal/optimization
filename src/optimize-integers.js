@@ -1,4 +1,4 @@
-const { getRandom } = require('./domain/get-random')
+const { getRandom } = require('@kmamal/domains/get-random')
 const { map } = require('@kmamal/util/array/map')
 
 const {
@@ -21,7 +21,8 @@ const iter = async (state) => {
 			state.patternSearch.vectors.forEach((vector) => {
 				map.$$$(vector, (x) => _round(x / 2))
 			})
-		} else {
+		}
+		else {
 			state.patternSearch.vectors.forEach((vector) => {
 				map.$$$(vector, (x) => _round(x * 1.5))
 			})

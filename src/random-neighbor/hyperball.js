@@ -1,4 +1,4 @@
-const { sampleSphere } = require('../../sampling/sphere')
+const { sampleSphere } = require('@kmamal/sampling/sphere')
 const { uniform } = require('@kmamal/util/random/uniform')
 
 const __sampleHyperball = (order, dst, src, steps) => {
@@ -9,16 +9,16 @@ const __sampleHyperball = (order, dst, src, steps) => {
 	}
 }
 
-const sampleHyperball$$$ = (vars, steps) => {
-	__sampleHyperball(vars.length, vars, vars, steps)
-	return vars
-}
-
 const sampleHyperball = (vars, steps) => {
 	const { length } = vars
 	const res = new Array(length)
 	__sampleHyperball(length, res, vars, steps)
 	return res
+}
+
+const sampleHyperball$$$ = (vars, steps) => {
+	__sampleHyperball(vars.length, vars, vars, steps)
+	return vars
 }
 
 sampleHyperball.$$$ = sampleHyperball$$$

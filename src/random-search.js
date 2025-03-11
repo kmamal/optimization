@@ -1,5 +1,5 @@
-const { getRandom } = require('./domain/get-random')
-const { clamp } = require('./domain/clamp')
+const { getRandom } = require('@kmamal/domains/get-random')
+const { clamp } = require('@kmamal/domains/clamp')
 const { accept: acceptHillClimbing } = require('./metaheuristics/hill-climbing')
 
 const init = async (
@@ -34,7 +34,8 @@ const iter = async (state) => {
 		state.candidate = solution
 		state.value = candidateValue
 		state.countFailed = 0
-	} else {
+	}
+	else {
 		state.countFailed++
 	}
 }
