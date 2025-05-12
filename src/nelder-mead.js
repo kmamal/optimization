@@ -127,7 +127,8 @@ const iter = async (state) => {
 				worst.value = contractedValue
 				break steps
 			}
-		} else {
+		}
+		else {
 			const _offset = V.scale(direction, -contractionCoefficient)
 			const contracted = V.add.$$$(_offset, centroid)
 			const contractedValue = await func(...contracted)

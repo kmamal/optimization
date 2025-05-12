@@ -35,6 +35,7 @@
     "./bayesian": "./src/bayesian.js",
     "./pattern-search": "./src/pattern-search.js",
     "./coordinate-descent": "./src/coordinate-descent.js",
+    "./multiple-starts": "./src/multiple-starts.js",
     "./random-search": "./src/random-search.js",
     "./nelder-mead": "./src/nelder-mead.js",
     "./powells-method": "./src/powells-method.js"
@@ -46,11 +47,5 @@
     "@kmamal/numbers": "^0.0.12",
     "@kmamal/sampling": "^0.0.3",
     "@kmamal/util": "^0.2.27"
-  },
-  "devDependencies": {
-    "@kmamal/chart": "^0.0.28",
-    "@kmamal/color": "^0.0.15",
-    "@kmamal/sdl": "^0.11.5",
-    "@napi-rs/canvas": "^0.1.68"
   }
 }
