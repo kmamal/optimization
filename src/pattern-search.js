@@ -64,7 +64,8 @@ const iter = async (state) => {
 		state.value = bestPoint.value
 		state.countFailed = 0
 		/* eslint-enable require-atomic-updates */
-	} else {
+	}
+	else {
 		state.countFailed++
 	}
 }

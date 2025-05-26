@@ -12,13 +12,13 @@ const init = async ({ func }, a, b) => {
 	const d = a + fibonacci(di)
 	const [ fc, fd ] = await Promise.all([ func(c), func(d) ])
 	const sign = Math.sign(b - a)
-	return { func, a, b, c, fc, ci, d, fd, di, sign }
+	return { func, a, b, c, fc, ci, d, fd, di, sign, done: false }
 }
 
 const iter = async (state) => {
-	const { func, c, fc, d, fd, sign } = state
+	if (state.done) { return }
 
-	if (state.ci === 1) { throw new Error("done") }
+	const { func, c, fc, d, fd, sign } = state
 	state.di = state.ci
 	state.ci--
 
@@ -29,7 +29,8 @@ const iter = async (state) => {
 		state.fc = fd
 		state.d = state.a + sign * fibonacci(state.di)
 		state.fd = await func(state.d)
-	} else {
+	}
+	else {
 		state.b = d
 		state.fb = fd
 		state.d = c
@@ -37,6 +38,8 @@ const iter = async (state) => {
 		state.c = state.a + sign * fibonacci(state.ci)
 		state.fc = await func(state.c)
 	}
+
+	if (state.ci === 1) { state.done = true }
 }
 
 const best = (state) => {

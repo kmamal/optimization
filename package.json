@@ -13,10 +13,7 @@
   "exports": {
     "./differential-evolution": "./src/differential-evolution.js",
     "./test-functions/simple": "./src/test-functions/simple.js",
-    "./optimize-integers": "./src/optimize-integers.js",
     "./search": "./src/search.js",
-    "./optimize-reals": "./src/optimize-reals.js",
-    "./optimize-mixed": "./src/optimize-mixed.js",
     "./metaheuristics/wandering": "./src/metaheuristics/wandering.js",
     "./metaheuristics/simulated-annealing": "./src/metaheuristics/simulated-annealing.js",
     "./metaheuristics/hill-climbing": "./src/metaheuristics/hill-climbing.js",
@@ -38,14 +35,17 @@
     "./multiple-starts": "./src/multiple-starts.js",
     "./random-search": "./src/random-search.js",
     "./nelder-mead": "./src/nelder-mead.js",
-    "./powells-method": "./src/powells-method.js"
+    "./exhaustive-search": "./src/exhaustive-search.js",
+    "./powells-method": "./src/powells-method.js",
+    "./auto": "./src/auto.js"
   },
   "dependencies": {
+    "@kmamal/async": "^0.0.15",
     "@kmamal/domains": "^0.0.3",
-    "@kmamal/linear-algebra": "^0.0.6",
+    "@kmamal/linear-algebra": "^0.0.11",
     "@kmamal/math": "^0.1.4",
     "@kmamal/numbers": "^0.0.12",
     "@kmamal/sampling": "^0.0.3",
-    "@kmamal/util": "^0.2.27"
+    "@kmamal/util": "^0.2.29"
   }
 }
