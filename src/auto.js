@@ -47,9 +47,6 @@ const init = async ({ order, domain, func }, { limit, ...options }) => {
 		}
 	}
 
-	const nominalsStateFlux = new Flux()
-	const integersStateFlux = new Flux()
-	const realsStateFlux = new Flux()
 	const evaluateFlux = new Flux()
 
 	const state = {
@@ -65,24 +62,24 @@ const init = async ({ order, domain, func }, { limit, ...options }) => {
 		...options,
 		nominalsIndexes,
 		nominalsSubdomain,
-		nominalsStateFlux,
+		nominalsState: null,
 		integersIndexes,
 		integersSubdomain,
-		integersStateFlux,
+		integersState: null,
 		integersSearchCache: new Map(),
 		integersSearchCacheMaxSize: 0,
 		realsIndexes,
 		realsSubdomain,
-		realsStateFlux,
+		realsState: null,
 		evaluateFlux,
 	}
 
 	_searchNominals(state)
 		.then(() => {
 			state.done = true
-			nominalsStateFlux.settle(null)
-			integersStateFlux.settle(null)
-			realsStateFlux.settle(null)
+			state.nominalsState = null
+			state.integersState = null
+			state.realsState = null
 			evaluateFlux.settle(null)
 		})
 
@@ -94,7 +91,6 @@ const _searchNominals = async (state) => {
 	const {
 		nominalsIndexes,
 		nominalsSubdomain,
-		nominalsStateFlux,
 		candidate,
 	} = state
 
@@ -117,13 +113,13 @@ const _searchNominals = async (state) => {
 		}),
 	})
 
-	nominalsStateFlux.settle(nominalsState)
+	state.nominalsState = nominalsState
 
 	while (!nominalsState.done) {
 		await ExhaustiveSearch.iter(nominalsState)
 	}
 
-	nominalsStateFlux.unsettle()
+	state.nominalsState = null
 	return ExhaustiveSearch.best(nominalsState).value
 }
 
@@ -131,7 +127,6 @@ const _searchIntegers = async (state) => {
 	const {
 		integersIndexes,
 		integersSubdomain,
-		integersStateFlux,
 		integersSearchCache,
 		candidate,
 	} = state
@@ -173,7 +168,7 @@ const _searchIntegers = async (state) => {
 		map$$$(vector, roundUp)
 	}
 
-	integersStateFlux.settle(integersState)
+	state.integersState = integersState
 
 	for (;;) {
 		await PatternSearch.iter(integersState)
@@ -195,8 +190,8 @@ const _searchIntegers = async (state) => {
 		}
 	}
 
-	integersStateFlux.unsettle()
 	integersSearchCache.clear()
+	state.integersState = null
 	return PatternSearch.best(integersState).value
 }
 
@@ -204,7 +199,6 @@ const _searchReals = async (state) => {
 	const {
 		realsIndexes,
 		realsSubdomain,
-		realsStateFlux,
 		candidate,
 		limit,
 	} = state
@@ -228,14 +222,14 @@ const _searchReals = async (state) => {
 		}),
 	})
 
-	realsStateFlux.settle(realsState)
+	state.realsState = realsState
 
 	for (;;) {
 		await NelderMead.iter(realsState)
-		if (await limit(state)) { break }
+		if (limit(state)) { break }
 	}
 
-	realsStateFlux.unsettle()
+	state.realsState = null
 	return NelderMead.best(realsState).value
 }
 
