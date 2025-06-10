@@ -7,7 +7,7 @@ const init = async (
 	{ initial = {}, getNeighbor, accept, ...options } = {},
 ) => {
 	const solution = initial.solution ?? getRandom(domain)
-	const value = initial.value ?? await func(...solution)
+	const value = initial.value ?? await func(solution)
 	return {
 		order,
 		domain,
@@ -27,7 +27,7 @@ const iter = async (state) => {
 
 	getNeighbor(candidate, solution)
 	clamp.$$$(domain, candidate)
-	const candidateValue = await func(...candidate)
+	const candidateValue = await func(candidate)
 
 	if (accept(state, candidateValue)) {
 		state.solution = candidate

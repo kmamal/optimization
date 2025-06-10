@@ -102,7 +102,7 @@ const _searchNominals = async (state) => {
 	const nominalsState = await ExhaustiveSearch.init({
 		order: nominalsOrder,
 		domain: nominalsSubdomain,
-		func: serialized(async (...args) => {
+		func: serialized(async (args) => {
 			for (let i = 0; i < nominalsOrder; i++) {
 				const index = nominalsIndexes[i]
 				const value = args[i]
@@ -141,7 +141,7 @@ const _searchIntegers = async (state) => {
 	const integersState = await PatternSearch.init({
 		order: integersOrder,
 		domain: integersSubdomain,
-		func: serialized(async (...args) => {
+		func: serialized(async (args) => {
 			for (let i = 0; i < integersOrder; i++) {
 				const index = integersIndexes[i]
 				const value = args[i]
@@ -211,7 +211,7 @@ const _searchReals = async (state) => {
 	const realsState = await NelderMead.init({
 		order: realsOrder,
 		domain: realsSubdomain,
-		func: serialized(async (...args) => {
+		func: serialized(async (args) => {
 			for (let i = 0; i < realsOrder; i++) {
 				const index = realsIndexes[i]
 				const value = args[i]
@@ -240,7 +240,7 @@ const _evaluate = async (state) => {
 	evaluateFlux.unsettle()
 	await evaluateFlux.promise()
 
-	const value = await func(...candidate)
+	const value = await func(candidate)
 	state.numEvaluations++
 
 	if (value < state.value || state.value === null) {

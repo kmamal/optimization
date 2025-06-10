@@ -12,7 +12,7 @@ const init = async (
 		Math.max(4, initial.count ?? 10 * order),
 		async () => {
 			const solution = getRandom(domain)
-			const value = await func(...solution)
+			const value = await func(solution)
 			return { solution, value }
 		},
 	))
@@ -77,7 +77,7 @@ const iter = async (state) => {
 	}
 	clamp.$$$(domain, candidate)
 
-	const candidateValue = await func(...candidate)
+	const candidateValue = await func(candidate)
 
 	if (candidateValue <= base.value) {
 		state.candidate = base.solution

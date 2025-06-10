@@ -11,7 +11,7 @@ const init = async (
 	{ initial = {}, vectors: _vectors, ...options } = {},
 ) => {
 	const solution = initial.solution ?? getRandom(domain)
-	const value = initial.value ?? await func(...solution)
+	const value = initial.value ?? await func(solution)
 
 	let vectors = _vectors
 	if (!vectors) {
@@ -49,7 +49,7 @@ const iter = async (state) => {
 	const candidatePoints = await Promise.all(vectors.map(async (vector) => {
 		const candidate = V.add(solution, vector)
 		clamp.$$$(domain, candidate)
-		const candidateValue = await func(...candidate)
+		const candidateValue = await func(candidate)
 		return {
 			solution: candidate,
 			value: candidateValue,

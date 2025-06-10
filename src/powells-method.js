@@ -11,7 +11,7 @@ const init = async (
 	{ initial = {}, searchLine, accept, ...options } = {},
 ) => {
 	const solution = initial.solution ?? getRandom(domain)
-	const value = initial.value ?? await func(...solution)
+	const value = initial.value ?? await func(solution)
 	return {
 		order,
 		domain,

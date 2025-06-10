@@ -8,7 +8,7 @@ const init = async (
 	const points = initial.points ?? []
 	if (initial.solution) {
 		const solution = initial.solution
-		const value = await func(...solution)
+		const value = await func(solution)
 		points.push({ solution, value })
 	}
 	if (points.length < 2) {
@@ -17,7 +17,7 @@ const init = async (
 			remaining,
 			async () => {
 				const solution = getRandom(domain)
-				const value = await func(...solution)
+				const value = await func(solution)
 				return { solution, value }
 			},
 		)))
@@ -57,7 +57,7 @@ const iter = async (state) => {
 
 	const acquisitionFunc = makeAcquisitionFunc(points)
 	const candidate = await search(acquisitionFunc)
-	const candidateValue = await func(...candidate)
+	const candidateValue = await func(candidate)
 
 	if (candidateValue < bestValue) {
 		state.bestValue = candidateValue

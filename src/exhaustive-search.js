@@ -46,7 +46,7 @@ const init = async ({ order, domain, func }, options) => {
 	iterator.next()
 
 	copy$$$(state.solution, state.candidate)
-	state.value = await func(...state.solution)
+	state.value = await func(state.solution)
 
 	return state
 }
@@ -61,7 +61,7 @@ const iter = async (state) => {
 	}
 
 	const { func, candidate } = state
-	const value = await func(...candidate)
+	const value = await func(candidate)
 
 	if (value < state.value) {
 		state.value = value

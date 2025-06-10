@@ -20,7 +20,7 @@ const init = async (
 		const base = initial.solution ?? getRandom(domain)
 		points[0] = {
 			solution: base,
-			value: initial.value ?? await func(...base),
+			value: initial.value ?? await func(base),
 		}
 
 		const ranges = getHalfRanges(domain)
@@ -34,7 +34,7 @@ const init = async (
 		}
 
 		await Promise.all(points.slice(1).map(async (e) => {
-			e.value = await func(...e.solution)
+			e.value = await func(e.solution)
 		}))
 	}
 
@@ -87,7 +87,7 @@ const iter = async (state) => {
 		let reflectedValue = Infinity
 
 		if (contains(domain, reflected)) {
-			reflectedValue = await func(...reflected)
+			reflectedValue = await func(reflected)
 			if (reflectedValue < secondWorst?.value && reflectedValue >= best.value) {
 				worst.solution = reflected
 				worst.value = reflectedValue
@@ -101,7 +101,7 @@ const iter = async (state) => {
 				const expanded = V.add.$$$(_offset, centroid)
 
 				if (contains(domain, expanded)) {
-					const expandedValue = await func(...expanded)
+					const expandedValue = await func(expanded)
 
 					if (expandedValue < reflectedValue) {
 						worst.solution = expanded
@@ -121,7 +121,7 @@ const iter = async (state) => {
 			const coefficient = reflectionCoefficient * contractionCoefficient
 			const _offset = V.scale(direction, coefficient)
 			const contracted = V.add.$$$(_offset, centroid)
-			const contractedValue = await func(...contracted)
+			const contractedValue = await func(contracted)
 			if (contractedValue < reflectedValue) {
 				worst.solution = contracted
 				worst.value = contractedValue
@@ -131,7 +131,7 @@ const iter = async (state) => {
 		else {
 			const _offset = V.scale(direction, -contractionCoefficient)
 			const contracted = V.add.$$$(_offset, centroid)
-			const contractedValue = await func(...contracted)
+			const contractedValue = await func(contracted)
 			if (contractedValue < worst.value) {
 				worst.solution = contracted
 				worst.value = contractedValue
@@ -147,7 +147,7 @@ const iter = async (state) => {
 			const _direction = V.sub(best.solution, x.solution)
 			const _offset = V.scale.$$$(_direction, coefficient)
 			V.add.$$$(x.solution, _offset)
-			x.value = await func(...x.solution)
+			x.value = await func(x.solution)
 		}))
 	}
 
