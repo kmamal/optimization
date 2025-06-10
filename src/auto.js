@@ -272,9 +272,20 @@ const search = async ({ func, domain, limit }) => {
 }
 
 
+const stopWhenRealsConvergeTo = (tolerance) =>
+	(state) => {
+		const { realsState: { points: [ a, ...rest ] } } = state
+		const maxDistance = rest.reduce((acc, x) => {
+			const distance = V.norm(V.sub(a.solution, x.solution))
+			return Math.max(acc, distance)
+		}, 0)
+		return maxDistance < tolerance
+	}
+
 module.exports = {
 	init,
 	iter,
 	best,
 	search,
+	stopWhenRealsConvergeTo,
 }
