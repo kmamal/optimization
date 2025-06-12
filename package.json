@@ -34,6 +34,7 @@
     "./coordinate-descent": "./src/coordinate-descent.js",
     "./multiple-starts": "./src/multiple-starts.js",
     "./random-search": "./src/random-search.js",
+    "./good-random-initial": "./src/good-random-initial.js",
     "./nelder-mead": "./src/nelder-mead.js",
     "./exhaustive-search": "./src/exhaustive-search.js",
     "./powells-method": "./src/powells-method.js",
@@ -42,6 +43,7 @@
   "dependencies": {
     "@kmamal/async": "^0.0.15",
     "@kmamal/domains": "^0.0.3",
+    "@kmamal/heap": "^0.0.9",
     "@kmamal/linear-algebra": "^0.0.11",
     "@kmamal/math": "^0.1.4",
     "@kmamal/numbers": "^0.0.12",

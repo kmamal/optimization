@@ -2,14 +2,16 @@ const { getRandom } = require('@kmamal/domains/get-random')
 const { accept: acceptHillClimbing } = require('./metaheuristics/hill-climbing')
 const { create } = require('@kmamal/util/array/create')
 const { map } = require('@kmamal/util/array/map')
+const { uniform } = require('@kmamal/util/random/uniform')
 
 const N = require('@kmamal/numbers/js')
 const V = require('@kmamal/linear-algebra/vector').defineFor(N)
 
 const init = async (
-	{ order, domain, func },
+	{ domain, func },
 	{ initial = {}, searchLine, accept, ...options } = {},
 ) => {
+	const order = domain.length
 	const solution = initial.solution ?? getRandom(domain)
 	const value = initial.value ?? await func(solution)
 	return {
@@ -50,7 +52,7 @@ const iter = async (state) => {
 		}
 		else {
 			state.vectors.forEach((vector) => {
-				map.$$$(vector, () => Math.random())
+				map.$$$(vector, uniform)
 				V.normalize.$$$(vector)
 			})
 		}

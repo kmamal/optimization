@@ -5,9 +5,10 @@ const { rand } = require('@kmamal/util/random/rand')
 const { uniform } = require('@kmamal/util/random/uniform')
 
 const init = async (
-	{ func, order, domain },
+	{ func, domain },
 	{ initial = {}, ...options } = {},
 ) => {
+	const order = domain.length
 	const points = initial.points ?? await Promise.all(create(
 		Math.max(4, initial.count ?? 10 * order),
 		async () => {
@@ -45,9 +46,9 @@ const init = async (
 
 const iter = async (state) => {
 	const {
-		func,
 		order,
 		domain,
+		func,
 		points,
 		candidate,
 		crossoverProbability,

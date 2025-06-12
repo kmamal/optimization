@@ -6,12 +6,13 @@ const { sortBy } = require('@kmamal/util/array/sort')
 const N = require('@kmamal/numbers/js')
 const V = require('@kmamal/linear-algebra/vector').defineFor(N)
 
-const getValue = (x) => x.value
+const _getValue = (x) => x.value
 
 const init = async (
-	{ func, order, domain },
+	{ domain, func },
 	{ initial = {}, ...options } = {},
 ) => {
+	const order = domain.length
 	let points = initial.points
 	if (!points) {
 		const simplexSize = order + 1
@@ -38,7 +39,7 @@ const init = async (
 		}))
 	}
 
-	sortBy.$$$(points, getValue)
+	sortBy.$$$(points, _getValue)
 
 	return {
 		order,
@@ -56,9 +57,9 @@ const init = async (
 
 const iter = async (state) => {
 	const {
-		func,
 		order,
 		domain,
+		func,
 		points,
 		centroid,
 		reflectionCoefficient,
@@ -151,13 +152,26 @@ const iter = async (state) => {
 		}))
 	}
 
-	sortBy.$$$(points, getValue)
+	sortBy.$$$(points, _getValue)
 }
 
 const best = (state) => state.points[0]
+
+
+const stopWhenPointsConvergeTo = (tolerance) =>
+	(state) => {
+		const { points: [ a, ...rest ] } = state
+		const maxDistance = rest.reduce((acc, x) => {
+			const distance = V.norm(V.sub(a.solution, x.solution))
+			return Math.max(acc, distance)
+		}, 0)
+		return maxDistance < tolerance
+	}
+
 
 module.exports = {
 	init,
 	iter,
 	best,
+	stopWhenPointsConvergeTo,
 }

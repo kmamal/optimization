@@ -3,9 +3,10 @@ const { clamp } = require('@kmamal/domains/clamp')
 const { accept: acceptHillClimbing } = require('./metaheuristics/hill-climbing')
 
 const init = async (
-	{ order, domain, func },
+	{ domain, func },
 	{ initial = {}, getNeighbor, accept, ...options } = {},
 ) => {
+	const order = domain.length
 	const solution = initial.solution ?? getRandom(domain)
 	const value = initial.value ?? await func(solution)
 	return {

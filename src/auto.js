@@ -5,19 +5,13 @@ const NelderMead = require('./nelder-mead')
 const { Flux } = require('@kmamal/async/flux')
 const { serialized } = require('@kmamal/util/function/async/serialized')
 
-const N = require('@kmamal/numbers/js')
-const V = require('@kmamal/linear-algebra/vector').defineFor(N)
-
 const { copy } = require('@kmamal/util/array/copy')
-const { map } = require('@kmamal/util/array/map')
-const { max } = require('@kmamal/util/array/max')
-const { roundUp } = require('@kmamal/util/number/rounding')
+const { create } = require('@kmamal/util/array/create')
 
 const copy$$$ = copy.$$$
-const map$$$ = map.$$$
 
 
-const init = async ({ order, domain, func }, { limit, ...options }) => {
+const init = async ({ domain, func }, { limitReals, ...options }) => {
 	const nominalsIndexes = []
 	const nominalsSubdomain = []
 	const integersIndexes = []
@@ -49,11 +43,12 @@ const init = async ({ order, domain, func }, { limit, ...options }) => {
 
 	const evaluateFlux = new Flux()
 
+	const order = domain.length
 	const state = {
 		order,
 		domain,
 		func,
-		limit,
+		limitReals,
 		done: false,
 		solution: new Array(order),
 		value: null,
@@ -92,6 +87,7 @@ const _searchNominals = async (state) => {
 		nominalsIndexes,
 		nominalsSubdomain,
 		candidate,
+		initial,
 	} = state
 
 	const nominalsOrder = nominalsSubdomain.length
@@ -99,9 +95,12 @@ const _searchNominals = async (state) => {
 		return await _searchIntegers(state)
 	}
 
+	const nominalsInitial = initial != null ? {
+		solution: create(nominalsOrder, (i) => initial.solution[nominalsIndexes[i]]),
+		value: initial.value,
+	} : undefined
+
 	const nominalsState = await ExhaustiveSearch.init({
-		order: nominalsOrder,
-		domain: nominalsSubdomain,
 		func: serialized(async (args) => {
 			for (let i = 0; i < nominalsOrder; i++) {
 				const index = nominalsIndexes[i]
@@ -111,7 +110,8 @@ const _searchNominals = async (state) => {
 
 			return await _searchIntegers(state)
 		}),
-	})
+		domain: nominalsSubdomain,
+	}, { initial: nominalsInitial })
 
 	state.nominalsState = nominalsState
 
@@ -129,12 +129,18 @@ const _searchIntegers = async (state) => {
 		integersSubdomain,
 		integersSearchCache,
 		candidate,
+		initial,
 	} = state
 
 	const integersOrder = integersSubdomain.length
 	if (integersOrder === 0) {
 		return await _searchReals(state)
 	}
+
+	const integersInitial = initial != null ? {
+		solution: create(integersOrder, (i) => initial.solution[integersIndexes[i]]),
+		value: initial.value,
+	} : undefined
 
 	const cacheKeyParts = new Array(integersOrder)
 
@@ -162,32 +168,16 @@ const _searchIntegers = async (state) => {
 			)
 			return result
 		}),
-	})
+	}, { initial: integersInitial })
 
-	for (const vector of integersState.vectors) {
-		map$$$(vector, roundUp)
-	}
+	PatternSearch.roundVectors(integersState)
 
 	state.integersState = integersState
 
 	for (;;) {
 		await PatternSearch.iter(integersState)
-
-		const { vectors, countFailed } = integersState
-
-		if (countFailed > 0) {
-			const maxNormSquared = max(map(vectors, V.normSquared))
-			if (maxNormSquared === 1) { break }
-
-			for (const vector of vectors) {
-				map$$$(vector, (x) => roundUp(x / 2))
-			}
-		}
-		else {
-			for (const vector of vectors) {
-				map$$$(vector, (x) => roundUp(x * 1.5))
-			}
-		}
+		if (PatternSearch.didFailAndVectorsConvergeTo(integersState, 1)) { break }
+		PatternSearch.adjustVectorsRounded(integersState, 0.5, 1.5)
 	}
 
 	integersSearchCache.clear()
@@ -200,7 +190,8 @@ const _searchReals = async (state) => {
 		realsIndexes,
 		realsSubdomain,
 		candidate,
-		limit,
+		limitReals,
+		initial,
 	} = state
 
 	const realsOrder = realsSubdomain.length
@@ -208,9 +199,12 @@ const _searchReals = async (state) => {
 		return await _evaluate(state)
 	}
 
+	const realsInitial = initial != null ? {
+		solution: create(realsOrder, (i) => initial.solution[realsIndexes[i]]),
+		value: initial.value,
+	} : undefined
+
 	const realsState = await NelderMead.init({
-		order: realsOrder,
-		domain: realsSubdomain,
 		func: serialized(async (args) => {
 			for (let i = 0; i < realsOrder; i++) {
 				const index = realsIndexes[i]
@@ -220,13 +214,14 @@ const _searchReals = async (state) => {
 
 			return await _evaluate(state)
 		}),
-	})
+		domain: realsSubdomain,
+	}, { initial: realsInitial })
 
 	state.realsState = realsState
 
 	for (;;) {
 		await NelderMead.iter(realsState)
-		if (limit(state)) { break }
+		if (limitReals(state)) { break }
 	}
 
 	state.realsState = null
@@ -265,22 +260,18 @@ const best = (state) => ({
 })
 
 
-const search = async ({ func, domain, limit }) => {
-	const state = await init({ func, domain, order: domain.length }, { limit })
+const search = async ({ func, domain, limitReals, options }) => {
+	const state = await init(
+		{ func, domain },
+		{ ...options, limitReals },
+	)
 	while (!state.done) { await iter(state) }
 	return best(state)
 }
 
-
 const stopWhenRealsConvergeTo = (tolerance) =>
-	(state) => {
-		const { realsState: { points: [ a, ...rest ] } } = state
-		const maxDistance = rest.reduce((acc, x) => {
-			const distance = V.norm(V.sub(a.solution, x.solution))
-			return Math.max(acc, distance)
-		}, 0)
-		return maxDistance < tolerance
-	}
+	(state) => NelderMead.stopWhenPointsConvergeTo(tolerance)(state.realsState)
+
 
 module.exports = {
 	init,

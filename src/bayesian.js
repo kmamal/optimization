@@ -2,7 +2,7 @@ const { getRandom } = require('@kmamal/domains/get-random')
 const { create } = require('@kmamal/util/array/create')
 
 const init = async (
-	{ func, order, domain },
+	{ func, domain },
 	{ initial = {}, search, makeAcquisitionFunc, ...options } = {},
 ) => {
 	const points = initial.points ?? []
@@ -34,7 +34,7 @@ const init = async (
 	}
 
 	return {
-		order,
+		order: domain.length,
 		domain,
 		func,
 		points,

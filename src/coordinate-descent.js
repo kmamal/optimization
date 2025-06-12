@@ -2,13 +2,13 @@ const { getRandom } = require('@kmamal/domains/get-random')
 const { accept: acceptHillClimbing } = require('./metaheuristics/hill-climbing')
 
 const init = async (
-	{ order, domain, func },
+	{ domain, func },
 	{ initial = {}, searchLine, accept, ...options } = {},
 ) => {
 	const solution = initial.solution ?? getRandom(domain)
 	const value = initial.value ?? await func(solution)
 	return {
-		order,
+		order: domain.length,
 		domain,
 		func,
 		solution,

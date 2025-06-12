@@ -29,7 +29,8 @@ const _iterate = function * (state, index) {
 	}
 }
 
-const init = async ({ order, domain, func }, options) => {
+const init = async ({ domain, func }, options) => {
+	const order = domain.length
 	const state = {
 		order,
 		domain,
