@@ -260,9 +260,9 @@ const best = (state) => ({
 })
 
 
-const search = async ({ func, domain, limitReals, options }) => {
+const search = async ({ problem, limitReals, options }) => {
 	const state = await init(
-		{ func, domain },
+		problem,
 		{ ...options, limitReals },
 	)
 	while (!state.done) { await iter(state) }
