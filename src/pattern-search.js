@@ -7,7 +7,7 @@ const { map } = require('@kmamal/util/array/map')
 const { max } = require('@kmamal/util/array/max')
 const { roundUp } = require('@kmamal/util/number/rounding')
 
-const map$$$ = map.$$$$
+const map$$$ = map.$$$
 
 const N = require('@kmamal/numbers/js')
 const V = require('@kmamal/linear-algebra/vector').defineFor(N)
