@@ -26,7 +26,7 @@ const init = async (
 const iter = async (state) => {
 	const { func, domain, solution, candidate, getNeighbor, accept } = state
 
-	getNeighbor(candidate, solution)
+	getNeighbor(state, candidate, solution)
 	clamp.$$$(domain, candidate)
 	const candidateValue = await func(candidate)
 

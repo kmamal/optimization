@@ -27,7 +27,7 @@ const iter = async (state) => {
 	const index = (state.index + 1) % order
 	state.index = index
 
-	const { x, fx: candidateValue } = await searchLine()
+	const { x, fx: candidateValue } = await searchLine(state)
 
 	if (accept(state, candidateValue)) {
 		solution[index] = x

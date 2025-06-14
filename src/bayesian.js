@@ -56,7 +56,7 @@ const iter = async (state) => {
 	} = state
 
 	const acquisitionFunc = makeAcquisitionFunc(points)
-	const candidate = await search(acquisitionFunc)
+	const candidate = await search(state, acquisitionFunc)
 	const candidateValue = await func(candidate)
 
 	if (candidateValue < bestValue) {

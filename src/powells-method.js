@@ -25,8 +25,8 @@ const init = async (
 			v[i] = 1
 			return v
 		}),
-		bestSearch: { x: 0, i: -1 },
-		startPosition: [ ...solution ],
+		bestSearch: { gain: 0, i: -1 },
+		startSolution: [ ...solution ],
 		searchLine,
 		accept: accept ?? acceptHillClimbing,
 		index: -1,
@@ -36,15 +36,15 @@ const init = async (
 }
 
 const iter = async (state) => {
-	const { order, solution, searchLine, accept } = state
+	const { order, solution, value, searchLine, accept } = state
 
 	let index = state.index + 1
 	if (index === order) {
 		index = 0
 
-		const { vectors, startPosition, bestSearch } = state
+		const { vectors, startSolution, bestSearch } = state
 		if (bestSearch.i !== -1) {
-			const newVector = V.sub.$$$(startPosition, solution)
+			const newVector = V.sub.$$$(startSolution, solution)
 			V.normalize.$$$(newVector)
 
 			vectors[bestSearch.i] = vectors[0]
@@ -57,18 +57,19 @@ const iter = async (state) => {
 			})
 		}
 
-		bestSearch.x = 0
+		bestSearch.gain = 0
 		bestSearch.i = -1
-		state.startPosition = [ ...solution ]
+		state.startSolution = [ ...solution ]
+		state.startValue = value
 	}
 	state.index = index
 
-	const { x, fx: candidateValue } = await searchLine()
+	const { x, fx: candidateValue } = await searchLine(state)
 
 	if (accept(state, candidateValue)) {
-		const absX = Math.abs(x)
-		if (absX > state.bestSearch.x) {
-			state.bestSearch.x = absX
+		const gain = state.startValue - candidateValue
+		if (gain > state.bestSearch.gain) {
+			state.bestSearch.gain = gain
 			state.bestSearch.i = index
 		}
 

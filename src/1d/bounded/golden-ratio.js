@@ -22,7 +22,8 @@ const iter = async (state) => {
 		const halfRange = (state.b / 2) - (state.a / 2)
 		state.d = (state.a + INVPHI * halfRange) + INVPHI * halfRange
 		state.fd = await func(state.d)
-	} else {
+	}
+	else {
 		state.b = d
 		state.fb = fd
 		state.d = c
